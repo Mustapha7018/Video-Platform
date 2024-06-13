@@ -40,6 +40,9 @@ jobs:
         run: |
           pip list
 
+      - name: Print Environment Variables
+        run: env
+        
       - name: Run migrations
         run: |
           python manage.py migrate
