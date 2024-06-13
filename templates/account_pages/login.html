@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  </head>
+  <body>
+    <div class="background-shapes">
+      <img
+        src="{% static 'images/shape1.png' %}"
+        alt="Shape 1"
+        class="shape shape1"
+      />
+      <img
+        src="{% static 'images/shape2.png' %}"
+        alt="Shape 2"
+        class="shape shape2"
+      />
+      <img
+        src="{% static 'images/shape3.png' %}"
+        alt="Shape 3"
+        class="shape shape3"
+      />
+    </div>
+    <div class="container">
+      <div class="logo">
+        <a href=""
+          ><img src="{% static 'images/veedeo.svg' %}" alt="Veedeo Logo"
+        /></a>
+      </div>
+      <div class="login-form">
+        <h1>Welcome Back!</h1>
+        <p>Continue exploring the more exciting videos</p>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <a href="{% url 'forgot-password' %}" class="forgot-password"
+            >Forgot Password? <span>Reset here</span></a
+          >
+          <button type="submit">Log in</button>
+          <p class="signup">
+            Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

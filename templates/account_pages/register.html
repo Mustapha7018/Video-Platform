@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign-up Page</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  </head>
+  <body>
+    <div class="background-shapes">
+      <img
+        src="{% static 'images/shape1.png' %}"
+        alt="Shape 1"
+        class="shape shape1"
+      />
+      <img
+        src="{% static 'images/shape2.png' %}"
+        alt="Shape 2"
+        class="shape shape2"
+      />
+      <img
+        src="{% static 'images/shape3.png' %}"
+        alt="Shape 3"
+        class="shape shape3"
+      />
+    </div>
+    <div class="container">
+      <div class="logo">
+        <a href=""
+          ><img src="{% static 'images/veedeo.svg' %}" alt="Veedeo Logo"
+        /></a>
+      </div>
+      <div class="login-form">
+        <h1>Sign Up</h1>
+        <p>Join our community of video enthusiasts</p>
+        <form action="{% url 'register' %}" method="post">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password1"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            name="password2"
+            placeholder="Confirm Password"
+            required
+          />
+          <button type="submit">Sign up</button>
+          <p class="signup">
+            Already have an account? <a href="{% url 'login' %}">Log in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

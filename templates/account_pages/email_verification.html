@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <a href=""><img src="{% static 'images/veedeo.svg' %}" alt="Veedeo Logo"></a>
+        </div>
+        <div class="verification-form email-form">
+            <h1>Verify Your Email</h1>
+            <form action="{% url 'forgot-password' %}" method="post">
+                {% csrf_token %}
+                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

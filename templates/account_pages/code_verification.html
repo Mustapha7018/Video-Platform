@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification Page</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <a href=""
+          ><img src="{% static 'images/veedeo.svg' %}" alt="Veedeo Logo"
+        /></a>
+      </div>
+      <div class="verification-form">
+        <h1>Enter Verification Code</h1>
+        <p>Enter the 6-digit pin sent to your email</p>
+        <form action="{% url 'verify' %}" method="post">
+          {% csrf_token %}
+          <div class="code-inputs">
+            <input type="text" name="input1" maxlength="1" class="code-input" required />
+            <input type="text" name="input2" maxlength="1" class="code-input" required />
+            <input type="text" name="input3" maxlength="1" class="code-input" required />
+            <input type="text" name="input4"maxlength="1" class="code-input" required />
+            <input type="text" name="input5" maxlength="1" class="code-input" required />
+            <input type="text" name="input6" maxlength="1" class="code-input" required />
+          </div>
+          <button type="submit">Verify</button>
+          <p class="resend">
+            Didn't receive the code?
+            <a href="{% url 'resend-verification' %}">Resend</a>
+          </p>
+        </form>
+      </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
