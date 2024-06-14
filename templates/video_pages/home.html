@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veedeo HomePage</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="logo"><img src="{% static 'images/veedeo.svg' %}" alt=""></div>
+    <div class="container">
+        <div class="left">
+            <h1>Veedeo Platform</h1>
+            <p>Videos Curated Just for You. Share with others</p>
+            <div class="buttons">
+                <form action="" method="post">
+                    {% csrf_token %}
+                <a href="{% url 'login' %}" class="btn">Log in</a>
+                <a href="{% url 'register' %}" class="btn">Sign up</a>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <img src="{% static 'images/home.png' %}" alt="Fashion Image">
+        </div>
+    </div>
+</body>
+</html>

@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 
 ''' HOMEPAGE VIEW '''
 class HomeView(TemplateView):
-    template_name = 'account_pages/home.html'
+    template_name = 'video_pages/home.html'
 
 
 
@@ -160,47 +160,6 @@ class CodeVerificationView(View):
 
 
 
-''' RESEND VERIFICATION CODE '''
-class ResendVerificationView(View):
-    def post(self, request, *args, **kwargs):
-        email = request.session.get('email')  # Store email in session on registration
-
-        if not email:
-            messages.error(request, "Email address is required.")
-            return redirect('register')
-
-        try:
-            code_user = CodeEmail.objects.get(email=email)
-            generated_code = generate_activation_code()
-            code_user.code = generated_code
-            code_user.expiration_date = timezone.now() + timedelta(hours=24)
-            code_user.save()
-
-            context = {"generated_code": generated_code}
-            html_message = render_to_string("account_pages/code.html", context)
-            plain_message = strip_tags(html_message)
-
-            message = EmailMultiAlternatives(
-                subject="Email Verification Code",
-                body=plain_message,
-                from_email=settings.EMAIL_HOST_USER,
-                to=[email],
-            )
-            message.attach_alternative(html_message, 'text/html')
-            message.send()
-
-            messages.success(request, "A new verification code has been sent to your email.")
-            return redirect("verify")
-        except CodeEmail.DoesNotExist:
-            messages.error(request, "Email not found. Please register first.")
-            return redirect("register")
-        except Exception as e:
-            logger.error(f"Error resending verification code: {e}")
-            messages.error(request, f"Error resending verification code: {e}, please try again.")
-            return redirect("verify")
-
-
-
 ''' VIEW TO LOG IN USERS '''
 class CustomLoginView(View):
     template_name = 'account_pages/login.html'
@@ -215,7 +174,7 @@ class CustomLoginView(View):
         if user is not None:
             login(request, user)
             messages.success(request, "Welcome back " + user.email + "!")
-            return redirect('home')  
+            return redirect('video_list')  
         else:
             messages.error(request, "Invalid email or password. Please try again.")
             return redirect(reverse('login'))
@@ -226,7 +185,7 @@ class CustomLoginView(View):
 class LogoutView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         logout(request)
-        return redirect('login')
+        return redirect('home')
 
 
 

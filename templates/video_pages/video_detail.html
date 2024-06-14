@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo">
+        </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </header>
+    <main>
+        <div class="breadcrumb">
+            <a href="{% url 'video_list' %}">All</a> /
+            <span>{{ video.title }}</span>
+        </div>
+        <h1 class="video-header">{{ video.title }}</h1>
+        <p class="date">{{ video.posted_time_ago }}</p>
+        <div class="video-container">
+            <video controls>
+                <source src="{{ video.video_file.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p class="description">{{ video.description }}</p>
+        <button id="share-button" class="share-button">Share</button>
+    </main>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

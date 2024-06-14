@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    padding: 0 50px 50px 50px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.logout-button {
+    background-color: #ff5c5c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.filter-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.breadcrumb a {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+
+.search-input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 570px;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    gap: 50px;
+}
+
+.video-card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.thumbnail {
+    background-color: #ccc;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.thumbnail video {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.date {
+    color: #666;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.pagination button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .search-input {
+        width: 100%;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-search {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pagination button {
+        padding: 8px;
+    }
+}

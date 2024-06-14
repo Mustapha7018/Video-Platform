@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video List</title>
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo">
+        </div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>        
+    </header>
+    <main>
+        <div class="filter-search">
+            <div class="breadcrumb">
+                <a href="{% url 'video_list' %}">All</a>
+                <span>{{ video.title }}</span>
+            </div>            
+            
+            <input type="text" class="search-input" placeholder="Search">
+        </div>
+        <div class="video-grid">
+            {% for video in videos %}
+                <div class="video-card">
+                    <div class="thumbnail">
+                        <video controls>
+                            <source src="{{ video.video_file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p class="title">
+                        <a href="{% url 'video_detail' video.pk %}">{{ video.title }}</a>
+                    </p>
+                    <p class="date">{{ video.posted_time_ago }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if is_paginated %}
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <button onclick="location.href='?page={{ page_obj.previous_page_number }}'">Previous</button>
+                    {% else %}
+                        <button hidden>Previous</button>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <button onclick="location.href='?page={{ page_obj.next_page_number }}'">Next</button>
+                    {% else %}
+                        <button hidden>Next</button>
+                    {% endif %}
+                </span>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

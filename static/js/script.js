@@ -24,3 +24,41 @@ alertMessages.forEach(function (alert) {
     alert.remove();
 });
 }, 5000);
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const shareButton = document.getElementById('share-button');
+    shareButton.addEventListener('click', () => {
+        if (navigator.share) {
+            navigator.share({
+                title: document.title,
+                url: window.location.href
+            }).then(() => {
+                console.log('Thanks for sharing!');
+            }).catch(console.error);
+        } else {
+            alert('Your browser does not support the Web Share API');
+        }
+    });
+});
+
+
+document.getElementById('resend-button').addEventListener('click', function() {
+    fetch("{% url 'resend-verification' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('A new verification code has been sent to your email.');
+      } else {
+        alert('Error resending verification code: ' + data.error);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  });

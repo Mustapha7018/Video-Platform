@@ -16,7 +16,8 @@ class AccountViewsTestCase(TestCase):
         self.verify_url = reverse('verify')
         self.login_url = reverse('login')
         self.logout_url = reverse('logout')
-        self.resend_verification_url = reverse('resend-verification')
+        self.home_url = reverse('home')
+        self.video_list_url = reverse('video_list')
         self.forgot_password_url = reverse('forgot-password')
         self.reset_password_url = 'reset-password'
 
@@ -111,13 +112,13 @@ class AccountViewsTestCase(TestCase):
             'password': 'password123'
         })
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('home'))
+        self.assertRedirects(response, self.video_list_url)
 
     def test_logout_view_post(self):
         self.client.login(email='testuser@example.com', password='password123')
         response = self.client.post(self.logout_url)
         self.assertEqual(response.status_code, 302)
-        self.assertIn(self.login_url, response.url)
+        self.assertIn(self.home_url, response.url)
 
     def test_forgot_password_view_get(self):
         response = self.client.get(self.forgot_password_url)
