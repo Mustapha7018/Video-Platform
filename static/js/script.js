@@ -41,24 +41,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
-
-
-document.getElementById('resend-button').addEventListener('click', function() {
-    fetch("{% url 'resend-verification' %}", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': '{{ csrf_token }}'
-      },
-      body: JSON.stringify({})
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert('A new verification code has been sent to your email.');
-      } else {
-        alert('Error resending verification code: ' + data.error);
-      }
-    })
-    .catch(error => console.error('Error:', error));
-  });
