@@ -98,15 +98,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
-    messages.INFO: 'info',
     messages.DEBUG: 'debug',
-    messages.ERROR: 'danger',
+    messages.INFO: 'info',
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
+    messages.ERROR: 'error',
 }

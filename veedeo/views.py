@@ -1,10 +1,9 @@
+from django.db.models import Q
 from .models import Video
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.views import View
-
-
 
 ''' ALL VIDEOS LIST VIEW '''
 class VideoListView(ListView):
@@ -14,6 +13,9 @@ class VideoListView(ListView):
     paginate_by = 6
 
     def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Video.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).order_by('-uploaded_at')
         return Video.objects.order_by('-uploaded_at')
 
 

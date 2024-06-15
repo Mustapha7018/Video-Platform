@@ -8,15 +8,18 @@
     <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
   </head>
   <body>
-    <div class="messages-container">
-      {% if messages %}
-        <div class="messages">
-          {% for message in messages %}
-            <div class="alert {{ message.tags }}">{{ message }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
+    {% if messages %} 
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      <p>{{ message }}</p>
+      <span
+        class="alert-close"
+        onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
     </div>
+    {% endfor %} 
+    {% endif %}
     <div class="background-shapes">
       <img
         src="{% static 'images/shape1.png' %}"
@@ -44,9 +47,14 @@
         <h1>Welcome Back!</h1>
         <p>Continue exploring the more exciting videos</p>
         <form action="{% url 'login' %}" method="post">
-            {% csrf_token %}
+          {% csrf_token %}
           <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" placeholder="Password" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
           <a href="{% url 'forgot-password' %}" class="forgot-password"
             >Forgot Password? <span>Reset here</span></a
           >
@@ -57,5 +65,6 @@
         </form>
       </div>
     </div>
+    <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

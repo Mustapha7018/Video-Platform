@@ -21,16 +21,18 @@
         <div class="filter-search">
             <div class="breadcrumb">
                 <a href="{% url 'video_list' %}">All</a>
-                <span>{{ video.title }}</span>
             </div>            
-            
-            <input type="text" class="search-input" placeholder="Search">
+
+            <form method="get" action="{% url 'video_list' %}">
+                <input type="text" name="q" class="search-input" placeholder="Search" value="{{ request.GET.q }}">
+                <button type="submit" class="search-button">Search</button>
+            </form>
         </div>
         <div class="video-grid">
             {% for video in videos %}
                 <div class="video-card">
                     <div class="thumbnail">
-                        <video controls>
+                        <video>
                             <source src="{{ video.video_file.url }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -46,7 +48,7 @@
             {% if is_paginated %}
                 <span class="step-links">
                     {% if page_obj.has_previous %}
-                        <button onclick="location.href='?page={{ page_obj.previous_page_number }}'">Previous</button>
+                        <button onclick="location.href='?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}'">Previous</button>
                     {% else %}
                         <button hidden>Previous</button>
                     {% endif %}
@@ -56,7 +58,7 @@
                     </span>
 
                     {% if page_obj.has_next %}
-                        <button onclick="location.href='?page={{ page_obj.next_page_number }}'">Next</button>
+                        <button onclick="location.href='?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}'">Next</button>
                     {% else %}
                         <button hidden>Next</button>
                     {% endif %}
