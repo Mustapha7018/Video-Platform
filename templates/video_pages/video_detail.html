@@ -1,38 +1,218 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ video.title }}</title>
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo">
-        </div>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
+      <div class="logo">
+        <a href="{% url 'video_list' %}">
+          <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
+        </a>
+      </div>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Logout</button>
+      </form>
     </header>
     <main>
-        <div class="breadcrumb">
-            <a href="{% url 'video_list' %}">All</a> /
-            <span>{{ video.title }}</span>
-        </div>
-        <h1 class="video-header">{{ video.title }}</h1>
-        <p class="date">{{ video.posted_time_ago }}</p>
-        <div class="video-container">
-            <video controls>
-                <source src="{{ video.video_file.url }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-        <p class="description">{{ video.description }}</p>
-        <button id="share-button" class="share-button">Share</button>
+      <div class="breadcrumb">
+        <a href="{% url 'video_list' %}">All</a> /
+        <span>{{ video.title }}</span>
+      </div>
+      <h1 class="video-header">{{ video.title }}</h1>
+      <p class="date">{{ video.posted_time_ago }}</p>
+      <div class="video-container">
+        <video controls>
+          <source src="{{ video.video_file.url }}" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="description">{{ video.description }}</p>
+      <button id="share-button" class="share-button">Share</button>
+
+      {% if is_admin %}
+      <div class="admin-buttons">
+        <button
+          class="btn btn-warning"
+          data-toggle="modal"
+          data-target="#editModal"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger"
+          data-toggle="modal"
+          data-target="#deleteModal"
+        >
+          Delete
+        </button>
+      </div>
+      {% endif %}
     </main>
+
+    {% if is_admin %}
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Edit Video</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="editForm">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="id_title">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="id_title"
+                  name="title"
+                  value="{{ video.title }}"
+                />
+              </div>
+              <div class="form-group">
+                <label for="id_description">Description</label>
+                <textarea
+                  class="form-control"
+                  id="id_description"
+                  name="description"
+                >
+                {{ video.description }}
+                </textarea>
+              </div>
+              <div class="form-group">
+                <label for="id_video_file">Video File</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="id_video_file"
+                  name="video_file"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete Video</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete this video?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmDelete">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
-</body>
+    <script>
+      $(document).ready(function () {
+        $("#editForm").on("submit", function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+          $.ajax({
+            type: "POST",
+            url: "{% url 'video_edit' video.pk %}",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+              if (response.success) {
+                location.reload();
+              } else {
+                alert("Error: " + response.errors);
+              }
+            },
+            error: function (xhr, status, error) {
+              alert("Error: " + xhr.responseText);
+            },
+          });
+        });
+
+        $("#confirmDelete").on("click", function () {
+          $.ajax({
+            type: "POST",
+            url: "{% url 'video_delete' video.pk %}",
+            data: {
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function (response) {
+              if (response.success) {
+                window.location.href = "{% url 'video_list' %}";
+              } else {
+                alert("Error deleting video: " + response.error);
+              }
+            },
+            error: function (xhr, status, error) {
+              alert("Error deleting video: " + xhr.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

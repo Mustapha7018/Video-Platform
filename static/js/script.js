@@ -41,3 +41,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
+
+document.getElementById('logoutButton').addEventListener('click', function() {
+    window.location.href = "{% url 'logout' %}";
+});

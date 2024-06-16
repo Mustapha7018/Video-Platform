@@ -1,5 +1,4 @@
 import re
-import logging
 from django.views import View
 from datetime import timedelta
 from django.utils import timezone
@@ -31,8 +30,6 @@ from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetConfirmView
 )
-
-logger = logging.getLogger(__name__)
 
 
 
@@ -111,7 +108,6 @@ class RegisterView(View):
             messages.success(request, "Email verification code sent to email.")
             return redirect("verify")
         except Exception as e:
-            logger.error(f"Error creating CodeEmail or sending email: {e}")
             messages.error(request, f"Error creating CodeEmail or sending email: {e}, please try again.")
             return render(request, self.template_name)
 
@@ -129,7 +125,7 @@ class CodeVerificationView(View):
 
     def post(self, request, *args, **kwargs):
         code = combine_code(request)
-        email = request.session.get('email')  # Store email in session on registration
+        email = request.session.get('email') 
 
         if not email:
             messages.error(request, "Email is required.")

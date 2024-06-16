@@ -29,11 +29,12 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=255, unique=True, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    objects = CustomUserManager()  
+    objects = CustomUserManager()
 
     groups = models.ManyToManyField(
         'auth.Group',
@@ -50,6 +51,11 @@ class CustomUser(AbstractUser):
         help_text=('Specific permissions for this user.'),
         verbose_name=('user permissions'),
     )
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
