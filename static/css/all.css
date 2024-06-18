@@ -20,7 +20,7 @@ header {
 .logo img {
     width: 150px;
 }
-
+/* 
 .logout-button {
     background-color: #ff5c5c;
     border: none;
@@ -29,6 +29,29 @@ header {
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
+} */
+
+.nav-buttons {
+    display: flex;
+    gap: 10px; 
+}
+
+.create-button,
+.logout-button {
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.create-button {
+    background-color: #00A28E;
+} 
+
+.logout-button {
+    background-color: #ff5c5c;
 }
 
 .filter-search {
@@ -107,7 +130,7 @@ header {
     margin-bottom: 10px;
 }
 
-.thumbnail video {
+.thumbnail img {
     width: 100%;
     border-radius: 5px;
 }
@@ -115,6 +138,7 @@ header {
 .title {
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 18px;
 }
 
 .title a {
@@ -144,19 +168,34 @@ header {
 
 @media (max-width: 600px) {
 
+    body {
+        padding: 1rem;
+    }
+
+    header {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo img {
+        width: 100px;
+        margin-left: -27px;
+    }
+
     .no-videos {
         font-size: 2em;
     }
     .search-input {
         width: 100%;
         border-radius: 5px; 
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 
     .search-button {
         width: 100%;
         border-radius: 5px; 
         padding: 12px;
+        align-self: center;
     }
 
     .filter-search {
@@ -170,6 +209,7 @@ header {
 
     .video-grid {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
 }
 

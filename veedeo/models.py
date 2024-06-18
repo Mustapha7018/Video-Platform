@@ -6,6 +6,7 @@ from datetime import timedelta
 class Video(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    thumbnail = models.ImageField(upload_to='thumbnails/', default='thumbnails/camera.jpg')
     video_file = models.FileField(upload_to='videos/')
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -13,17 +14,28 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
+
     def posted_time_ago(self):
         now = timezone.now()
         diff = now - self.uploaded_at
-        if diff.days > 365:
-            return f"{diff.days // 365} years ago"
-        if diff.days > 30:
-            return f"{diff.days // 30} months ago"
-        if diff.days > 0:
-            return f"{diff.days} days ago"
-        if diff.seconds > 3600:
-            return f"{diff.seconds // 3600} hours ago"
-        if diff.seconds > 60:
-            return f"{diff.seconds // 60} minutes ago"
+        
+        periods = [
+            (365, "year"),
+            (30, "month"),
+            (1, "day"),
+            (3600, "hour", True),  
+            (60, "minute", True)   
+        ]
+        
+        for period, unit, *is_seconds in periods:
+            if is_seconds:
+                temp = diff.seconds // period
+            else:
+                temp = diff.days // period
+            
+            if temp > 0:
+                unit_plural = unit if temp == 1 else f"{unit}s"
+                return f"{temp} {unit_plural} ago"
+        
         return "just now"
+

@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.views.generic import (
     ListView,
     DetailView,
+    CreateView,
     UpdateView,
     DeleteView
 )
@@ -54,19 +55,15 @@ class VideoDetailView(DetailView):
 
 
 ''' VIDEO UPLOAD VIEW '''
-class VideoUploadView(LoginRequiredMixin, UserPassesTestMixin, View):
-    def test_func(self):
-        return self.request.user.is_staff
+class VideoUploadView(LoginRequiredMixin, CreateView):
+    model = Video
+    form_class = VideoForm
+    template_name = 'video_pages/upload.html'
+    success_url = reverse_lazy('all_videos')
 
-    def post(self, request, *args, **kwargs):
-        if not self.test_func():
-            return JsonResponse({'success': False, 'error': 'Permission denied.'})
-        
-        form = VideoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'success': True})
-        return JsonResponse({'success': False, 'errors': form.errors})
+    def form_valid(self, form):
+        form.instance.uploaded_by = self.request.user
+        return super().form_valid(form)
 
 
 

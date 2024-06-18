@@ -1,8 +1,13 @@
-body {
-    font-family: Arial, sans-serif;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    padding: 0 50px 50px 50px;
 }
 
 header {
@@ -17,21 +22,20 @@ header {
 }
 
 .logout-button {
-    background-color: #ff4b5c;
-    color: #fff;
+    background-color: #ff5c5c;
     border: none;
-    padding: 0.5rem 1rem;
+    color: white;
+    padding: 10px 20px;
     cursor: pointer;
-    margin-right: 2rem;
-    margin-top: -105px;
+    border-radius: 5px;
+    text-decoration: none;
     float: right;
-    border-radius: 4px;
 }
 
 main {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 2rem;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -67,7 +71,7 @@ h1 {
 }
 
 .video-container {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .video-container video {
@@ -77,8 +81,9 @@ h1 {
 
 .description {
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.7;
     margin-bottom: 2rem;
+    text-align: justify;
 }
 
 .share-button {
@@ -95,14 +100,17 @@ h1 {
     header {
         flex-direction: column;
         align-items: flex-start;
+        align-items: center;
+        margin-top: 1rem;
     }
 
     .logo img {
-        margin-bottom: 1rem;
+        width: 100px;
     }
 
     main {
         padding: 1rem;
+        margin: 1rem;
     }
 
     h1 {
@@ -114,7 +122,8 @@ h1 {
 .admin-buttons {
     display: flex;
     gap: 10px; 
-    margin-top: 1rem; 
+    margin-top: 0.8rem; 
+    margin-bottom: 2rem;
 }
 
 .admin-buttons .btn {

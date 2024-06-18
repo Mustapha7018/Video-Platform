@@ -13,11 +13,9 @@
   </head>
   <body>
     <header>
-      <div class="logo">
         <a href="{% url 'video_list' %}">
-          <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
+          <img src="{% static 'images/veedeo.png' %}" alt="Veodeo Logo" />
         </a>
-      </div>
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="logout-button">Logout</button>
