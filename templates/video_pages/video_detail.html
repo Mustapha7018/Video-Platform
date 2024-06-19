@@ -18,14 +18,17 @@
           <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
         </div>
       </a>
+      {% if user.is_authenticated %}
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="logout-button">Logout</button>
       </form>
+      {% endif %}
     </header>
     <main>
       <div class="breadcrumb">
-        <a href="{% url 'video_list' %}">All</a> /
+        {% if user.is_authenticated %}
+        <a href="{% url 'video_list' %}">All</a> / {% endif %}
         <span>{{ video.title }}</span>
       </div>
       <h1 class="video-header">{{ video.title }}</h1>
