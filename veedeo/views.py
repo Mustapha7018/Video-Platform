@@ -1,10 +1,12 @@
 from django.db.models import Q
 from .models import Video
+from accounts.models import CustomUser
 from django.contrib.auth import logout
 from django.urls import reverse_lazy
 from .forms import VideoForm
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+
 from django.views.generic import (
     ListView,
     DetailView,
@@ -59,11 +61,24 @@ class VideoUploadView(LoginRequiredMixin, CreateView):
     model = Video
     form_class = VideoForm
     template_name = 'video_pages/upload.html'
-    success_url = reverse_lazy('all_videos')
+    success_url = reverse_lazy('video_list')
 
     def form_valid(self, form):
         form.instance.uploaded_by = self.request.user
+        print('Form is valid')
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print('Form is invalid')
+        print(form.errors)
+        return super().form_invalid(form)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['staff_users'] = CustomUser.objects.filter(is_staff=True)
+        return context
+
 
 
 
@@ -93,9 +108,6 @@ class VideoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user.is_staff
 
     def delete(self, request, *args, **kwargs):
-        try:
-            self.object = self.get_object()
-            self.object.delete()
-            return JsonResponse({'success': True})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponseRedirect(self.success_url)

@@ -1,6 +1,39 @@
-<h1>Upload Video</h1>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Upload</button>
-</form>
+{% extends 'video_pages/default.html' %}
+{% load static %}
+{% block content %}
+<main class="upoad__form">
+  <h2>Upload Video</h2>
+  <form method="post" action="{% url 'video_upload' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="thumbnail">Thumbnail</label>
+      <input type="file" id="thumbnail" name="thumbnail" />
+    </div>
+    <div class="form-group">
+      <label for="video">Video File</label>
+      <input type="file" id="video" name="video_file" />
+    </div>
+    <div class="form-group">
+      <label for="uploaded_by">Uploaded by</label>
+      <select id="uploaded_by" name="uploaded_by">
+        <option value="" selected disabled>Choose...</option>
+        {% for user in staff_users %}
+        <option value="{{ user.id }}">{{ user.email }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+        <button type="submit">Upload</button>
+        <button type="reset">Reset</button>
+    </div>
+  </form>
+</main>
+{% endblock %}

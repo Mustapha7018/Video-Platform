@@ -14,11 +14,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .logo img {
-    width: 150px;
+    width: 100px;
 }
 
 .logout-button {
@@ -30,6 +30,7 @@ header {
     border-radius: 5px;
     text-decoration: none;
     float: right;
+    margin-top: -70px;
 }
 
 main {
@@ -108,13 +109,24 @@ h1 {
         width: 100px;
     }
 
-    main {
+    body {
         padding: 1rem;
-        margin: 1rem;
     }
 
     h1 {
         font-size: 1.5rem;
+    }
+
+    main {
+        padding: 0.8rem;
+    }
+
+    .admin-buttons .btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        border: none;
     }
 }
 

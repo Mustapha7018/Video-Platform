@@ -4,9 +4,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Videos</title>
+    <title>Upload Video</title>
     <link rel="stylesheet" href="{% static 'css/all.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
   </head>
   <body>
     {% if messages %}
@@ -22,9 +21,11 @@
     {% endfor %}
     {% endif %}
     <header>
-      <div class="logo">
-        <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
-      </div>
+      <a href="{% url 'video_list' %}">
+        <div class="logo">
+          <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
+        </div>
+      </a>
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="logout-button">Logout</button>
@@ -33,55 +34,6 @@
 
     {% block content %}
     {% endblock %}
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script>
-      $(document).ready(function () {
-        $("#editForm").on("submit", function (e) {
-          e.preventDefault();
-          var formData = new FormData(this);
-          $.ajax({
-            type: "POST",
-            url: "{% url 'video_edit' video.pk %}",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if (response.success) {
-                location.reload();
-              } else {
-                alert("Error: " + response.errors);
-              }
-            },
-            error: function (xhr, status, error) {
-              alert("Error: " + xhr.responseText);
-            },
-          });
-        });
-  
-        $("#confirmDelete").on("click", function () {
-          $.ajax({
-            type: "POST",
-            url: "{% url 'video_delete' video.pk %}",
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-            },
-            success: function (response) {
-              if (response.success) {
-                window.location.href = "{% url 'video_list' %}";
-              } else {
-                alert("Error deleting video: " + response.error);
-              }
-            },
-            error: function (xhr, status, error) {
-              alert("Error deleting video: " + xhr.responseText);
-            },
-          });
-        });
-      });
-    </script>
+    
   </body>
 </html>

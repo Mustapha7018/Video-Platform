@@ -13,9 +13,11 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'video_list' %}">
-          <img src="{% static 'images/veedeo.png' %}" alt="Veodeo Logo" />
-        </a>
+      <a href="{% url 'video_list' %}">
+        <div class="logo">
+          <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
+        </div>
+      </a>
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="logout-button">Logout</button>
@@ -191,23 +193,21 @@
           });
         });
 
-        $("#confirmDelete").on("click", function () {
-          $.ajax({
-            type: "POST",
-            url: "{% url 'video_delete' video.pk %}",
-            data: {
-              csrfmiddlewaretoken: "{{ csrf_token }}",
-            },
-            success: function (response) {
-              if (response.success) {
+        $(document).ready(function () {
+          $("#confirmDelete").on("click", function () {
+            $.ajax({
+              type: "POST",
+              url: "{% url 'video_delete' video.pk %}",
+              data: {
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+              },
+              success: function (response) {
                 window.location.href = "{% url 'video_list' %}";
-              } else {
-                alert("Error deleting video: " + response.error);
-              }
-            },
-            error: function (xhr, status, error) {
-              alert("Error deleting video: " + xhr.responseText);
-            },
+              },
+              error: function (xhr, status, error) {
+                alert("Error deleting video: " + xhr.responseText);
+              },
+            });
           });
         });
       });
