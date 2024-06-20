@@ -68,7 +68,7 @@ header {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px; 
-    width: calc(100% - 120px);
+    width: 470px;
 }
 
 .search-input:focus {
@@ -197,6 +197,7 @@ header {
 
     .search-button {
         width: 100px;
+        margin-bottom: -2px;
     }
 
     .filter-search {
