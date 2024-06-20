@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ video.title }}</title>
     <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
     <link
@@ -31,7 +31,7 @@
         <a href="{% url 'video_list' %}">All</a> / {% endif %}
         <span>{{ video.title }}</span>
       </div>
-      <h1 class="video-header">{{ video.title }}</h1>
+      <h1 class="video-header">{{ video.title|title }}</h1>
       <p class="date">{{ video.posted_time_ago }}</p>
       <div class="video-container">
         <video controls>
@@ -104,9 +104,16 @@
                   class="form-control"
                   id="id_description"
                   name="description"
-                >
-                {{ video.description }}
-                </textarea>
+                >{{ video.description }}</textarea>
+              </div>
+              <div class="form-group">
+                <label for="id_thumbnail">Thumbnail</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="id_thumbnail"
+                  name="thumbnail"
+                />
               </div>
               <div class="form-group">
                 <label for="id_video_file">Video File</label>

@@ -50,6 +50,7 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .breadcrumb a {
@@ -67,7 +68,7 @@ header {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px; 
-    width: 472px;
+    width: calc(100% - 120px);
 }
 
 .search-input:focus {
@@ -84,6 +85,7 @@ header {
     cursor: pointer;
     font-size: 1rem;
     margin-left: -5px;
+    width: 100px;
 }
 
 .no-videos {
@@ -168,25 +170,33 @@ header {
         flex-direction: row;
     }
 
+    .breadcrumb {
+        text-align: left;
+    }
+
     .logo img {
         width: 100px;
         margin-left: -27px;
     }
 
     .no-videos {
-        font-size: 2em;
+        font-size: 1em;
     }
-    .search-input {
+
+    .filter-search {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 10px;
         width: 100%;
-        border-radius: 5px; 
-        margin-bottom: 10px;
+        place-content: center;
+    }
+
+    .search-input {
+        width: calc(100% - 100px);
     }
 
     .search-button {
-        width: 100%;
-        border-radius: 5px; 
-        padding: 12px;
-        align-self: center;
+        width: 100px;
     }
 
     .filter-search {

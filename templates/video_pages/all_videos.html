@@ -24,10 +24,12 @@
       <img src="{% static 'images/veedeo.svg' %}" alt="Veodeo Logo" />
       </div>
       <div class="nav-buttons">
+        {% if is_admin %}
       <form action="{% url 'video_upload' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="create-button">Create Video</button>
       </form>
+      {% endif %}
       <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="logout-button">Logout</button>
@@ -61,7 +63,7 @@
             </a>
           </div>
           <p class="title">
-            <a href="{% url 'video_detail' video.pk %}">{{ video.title }}</a>
+            <a href="{% url 'video_detail' video.pk %}">{{ video.title|title }}</a>
           </p>
           <p class="date">{{ video.posted_time_ago }}</p>
         </div>

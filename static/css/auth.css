@@ -169,7 +169,8 @@ body {
 }
 
 .code-input {
-  width: 40px;
+  flex-grow: 1;
+  max-width: 40px;
   height: 40px;
   margin: 0 5px;
   border: 2px solid #ddd;
@@ -178,6 +179,14 @@ body {
   color: #007bff;
   text-align: center;
   font-size: 24px;
+}
+
+.code-input:first-child {
+  margin-left: 0;
+}
+
+.code-input:last-child {
+  margin-right: 0;
 }
 
 .code-input:focus {
@@ -219,6 +228,10 @@ body {
 
   .code-inputs {
     justify-content: center;
+  }
+
+  .verification-form button {
+    margin-bottom: 1.5rem;
   }
 }
 

@@ -65,12 +65,9 @@ class VideoUploadView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.uploaded_by = self.request.user
-        print('Form is valid')
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print('Form is invalid')
-        print(form.errors)
         return super().form_invalid(form)
 
 
@@ -85,7 +82,7 @@ class VideoUploadView(LoginRequiredMixin, CreateView):
 ''' VIDEO UPDATE VIEW '''
 class VideoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Video
-    fields = ['title', 'description', 'video_file']
+    fields = ['title', 'description', 'video_file', 'thumbnail']
 
     def test_func(self):
         return self.request.user.is_staff
