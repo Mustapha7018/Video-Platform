@@ -31,7 +31,7 @@
         <a href="{% url 'video_list' %}">All</a> / {% endif %}
         <span>{{ video.title }}</span>
       </div>
-      <h1 class="video-header">{{ video.title|title }}</h1>
+      <h1 class="video-header">{{ video.title }}</h1>
       <p class="date">{{ video.posted_time_ago }}</p>
       <div class="video-container">
         <video controls>

@@ -6,7 +6,8 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = config('SECRET_KEY', default='your-default-secret-key')
+SECRET_KEY = config('SECRET_KEY',
+             default='c(bm_^b-wk%*-6vn(u+9p%2k!jo-8-xi6z@5#_hg1vmxv-e+8&')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 EMAIL_BACKEND = config('EMAIL_BACKEND')
